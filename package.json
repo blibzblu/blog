@@ -1,0 +1,29 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "Blibz Blog",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blibzblu/blog.git"
+  },
+  "keywords": [
+    "Blibz",
+    "Blog"
+  ],
+  "author": "Blibz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/blibzblu/blog/issues"
+  },
+  "homepage": "https://github.com/blibzblu/blog#readme",
+  "dependencies": {
+    "dotenv": "5.0.1",
+    "express": "4.16.3",
+    "mongoose": "5.0.17",
+    "pug": "2.0.3"
+  }
+}

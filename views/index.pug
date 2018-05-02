@@ -1,0 +1,38 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    meta(name="csrf-token", content= csrfToken)
+    link(rel="stylesheet", href="/styles/index.css")
+    title Blibz Blog
+    body
+      div(id="welcome")
+        h1 Blibz
+        p Oh, were you looking for my blog?
+        p Unfortunately it's not quite ready yet, but you can leave your email address to be notified when I post a new update.
+        p Or send me a message to introduce yourself, tell me what you would like me to write about, suggestions, or just what you think of me.
+        form(action="/message", method="post")
+          div
+            label(for="email-input") Email:
+            input(type="email", id="email-input", name="email", placeholder="youremail@domain.com", required)
+          div
+            label(for="email-input") Message:
+            textarea(id="message-area", name="message", placeholder="Send me a message!")
+          button(type="submit") Send
+      div(id="timer")
+        h2 Time Until my First post goes Live:
+        div(id="t-days", class="timepiece")
+          p(id="l1") Days
+          p(id="v1") - -
+        div(id="t-hours", class="timepiece")
+          p(id="l2") Hours
+          p(id="v2") - -
+        div(id="t-minutes", class="timepiece")
+          p(id="l3") Minutes
+          p(id="v3") - -
+        div(id="t-seconds", class="timepiece")
+          p(id="l4") Seconds
+          p(id="v4") - -
+      script(src="/scripts/index.js")
