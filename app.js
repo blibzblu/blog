@@ -18,7 +18,15 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.get("/", (req, res) => {
-  res.render("index");
+  if(req.query){
+    if(req.query.postid === "000001"){
+      res.render("first-post");
+    } else {
+      res.render("index");
+    }
+  } else {
+    res.render("index");
+  }
 });
 
 app.post("/message", (req, res) => {
@@ -30,7 +38,7 @@ app.post("/message", (req, res) => {
   newMessage.save(err => {
     if(err) res.redirect("/");
   });
-  
+
   res.render("thanks");
 });
 
