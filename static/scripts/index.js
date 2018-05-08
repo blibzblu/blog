@@ -8,18 +8,14 @@ function update(){
   var currentDate = Date.now();
   var deltaMilis = launchDate - currentDate;
 
-
+  if(deltaMilis <= 0){
+    window.location = "?postid=000001";
+  }
 
   var secondLength = 1000;
   var minuteLength = secondLength * 60;
   var hourLength = minuteLength * 60;
   var dayLength = hourLength * 24;
-
-  deltaMilis -= dayLength;
-
-  if(deltaMilis <= 0){
-    window.location = "?postid=000001";
-  }
 
   var daysLeft = parseInt(deltaMilis / dayLength);
   deltaMilis -= daysLeft * dayLength;
