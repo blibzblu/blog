@@ -4,7 +4,7 @@ require("dotenv").config();
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
-const Message = require(__dirname + "/dbmodels/message");
+const BlogEntry = require(__dirname + "/dbmodels/blogEntry");
 
 mongoose.connect(process.env.DBURL);
 
@@ -18,15 +18,36 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.get("/", (req, res) => {
-  if(req.query){
-    if(req.query.postid === "000001"){
-      res.render("first-post");
-    } else {
-      res.render("index");
-    }
-  } else {
-    res.render("index");
+  let postID = req.query.postid;
+
+  if(!postID){
+    // postID should automagically be set to the latest entry
+    postID = "000001";
   }
+
+  switch(postID){
+    case "000001":
+      res.render("first-post");
+      break;
+
+    case "000002":
+      res.render("post-2");
+      break;
+    }
+});
+
+app.get("/editor", (req, res) => {
+  res.render("editor");
+});
+
+app.post("/save-entry", (req, res) => {
+  let newEntry = new BlogEntry({
+    "publish-code": 0,
+    "title": req.body.title,
+    "content": req.body.entry
+  });
+
+  newEntry.save(err => {console.log(err)});
 });
 
 app.post("/message", (req, res) => {
