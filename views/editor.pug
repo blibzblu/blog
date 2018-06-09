@@ -4,11 +4,16 @@ html(lang="en")
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     meta(http-equiv="X-UA-Compatible", content="ie=edge")
-    link(rel="stylesheet", href="/styles/style.css")
+    link(rel="stylesheet", href="/styles/editor.css")
     title Blibz - Editor
     body
-      h1 Editor
-      form(action="save-entry" method="post")
-        input(name="title")
-        textarea(name="entry" rows="8" cols="80")
-        button(type="submit") Save
+      div(id="container")
+        div(id="head")
+          input(placeholder="Title")
+          div(id="buttons")
+            button(id="previewedit", onclick="preview()") Preview
+            button Save
+        textarea(id="editarea")
+        div(id="previewarea")
+      script(src="https://cdn.jsdelivr.net/npm/marked/marked.min.js")
+      script(src="scripts/editor.js")
