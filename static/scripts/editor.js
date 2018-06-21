@@ -12,8 +12,8 @@ function preview(){
 
   previewArea.innerHTML = compiledMarkup;
 
-  editarea.style.height = "0";
-  previewArea.style.height = "80%";
+  editarea.classList = "hidden-area";
+  previewArea.classList = "shown-area";
 
   preved.setAttribute("onclick", "edit()");
 }
@@ -22,8 +22,8 @@ function edit(){
   var preved = document.getElementById("previewedit");
   preved.innerText = "Preview";
 
-  editarea.style.height = "80%";
-  previewArea.style.height = "0";
+  editarea.classList = "shown-area";
+  previewArea.classList = "hidden-area";
 
   preved.setAttribute("onclick", "preview()");
 }

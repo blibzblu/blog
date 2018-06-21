@@ -8,12 +8,12 @@ html(lang="en")
     title Blibz - Editor
     body
       div(id="container")
-        div(id="head")
-          input(placeholder="Title")
-          div(id="buttons")
-            button(id="previewedit", onclick="preview()") Preview
-            button Save
-        textarea(id="editarea")
+        input(id="title", placeholder="Title")
+        div(id="buttons")
+          button(id="previewedit", onclick="preview()") PREVIEW
+          button SAVE
+          button PUBLISH
+        textarea(id="editarea", class="shown-area")
         div(id="previewarea")
       script(src="https://cdn.jsdelivr.net/npm/marked/marked.min.js")
       script(src="scripts/editor.js")
