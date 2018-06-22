@@ -36,6 +36,14 @@ app.get("/", (req, res) => {
     }
 });
 
+app.get("/login", (req, res) => {
+  res.render("login");
+});
+
+app.post("/login", (req, res) => {
+  console.log(req.body);
+});
+
 app.get("/editor", (req, res) => {
   res.render("editor");
 });
