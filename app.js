@@ -3,8 +3,12 @@ const app = express();
 require("dotenv").config();
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
+const passport = require("passport");
+const session = require("express-session");
 
 const BlogEntry = require(__dirname + "/dbmodels/blogEntry");
+const User = require(__dirname + "/dbmodels/user");
 
 mongoose.connect(process.env.DBURL);
 
@@ -16,6 +20,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+
+app.use(session({
+  secret: process.env.SECRET,
+  resave: false,
+  saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.get("/", (req, res) => {
   let postID = req.query.postid;
@@ -41,7 +54,26 @@ app.get("/login", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
-  console.log(req.body);
+  User.find({"username": req.body.un}, (err, docs) => {
+    if(err) throw err;
+
+    if(docs.length > 0){
+      bcrypt.compare(req.body.pw, docs[0].password, (err, resp) => {
+        if(err) throw err;
+
+        if(resp){
+          req.login(docs[0]._id, err => {if(err) throw err;});
+          res.redirect("/editor");
+        } else {
+          // Invalid Credentials
+          res.redirect("/");
+        }
+      });
+    } else {
+      // No such User
+      res.redirect("/");
+    }
+  });
 });
 
 app.get("/editor", (req, res) => {
@@ -74,4 +106,12 @@ app.post("/message", (req, res) => {
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
   console.log("App Listening on Port: " + port);
+});
+
+passport.serializeUser(function(uid, done){
+  done(null, uid);
+});
+
+passport.deserializeUser(function(uid, done){
+  done(null, uid);
 });
