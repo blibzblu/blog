@@ -36,18 +36,19 @@ app.get("/", (req, res) => {
 
   if(!postID){
     // postID should automagically be set to the latest entry
-    postID = "000001";
+    postID = 1;
   }
 
-  switch(postID){
-    case "000001":
-      res.render("first-post");
-      break;
+  PublishedEntry.findOne({"publish-code": postID}, (err, doc) => {
+    if(err) throw err;
 
-    case "000002":
-      res.render("post-2");
-      break;
+    if(doc){
+      res.render("viewPost", {"title": doc.title, "content": doc.content});
+    } else {
+      // Post does not exist
+      res.redirect("/");
     }
+  });
 });
 
 app.get("/login", (req, res) => {
