@@ -46,7 +46,30 @@ function save(){
   }
 
   request.send(JSON.stringify({
-    "title": "title",
-    "content": "content"
+    "title": document.getElementById("title").value,
+    "content": document.getElementById("editarea").value
+  }));
+}
+
+function publish(){
+  let request = new XMLHttpRequest();
+
+  request.onerror = function(){
+    console.log("Error Saving");
+  }
+
+  request.open("post", "/publish-entry", true);
+  //request.setRequestHeader('CSRF-Token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+  request.setRequestHeader('Content-Type', "Application/json");
+
+  request.onload = function(){
+    if(request.readyState === 4 && request.status === 200){
+      console.log("Saved");
+    }
+  }
+
+  request.send(JSON.stringify({
+    "title": document.getElementById("title").value,
+    "content": document.getElementById("editarea").value
   }));
 }

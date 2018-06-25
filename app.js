@@ -7,7 +7,8 @@ const bcrypt = require("bcryptjs");
 const passport = require("passport");
 const session = require("express-session");
 
-const BlogEntry = require(__dirname + "/dbmodels/blogEntry");
+const SavedEntry = require(__dirname + "/dbmodels/savedEntry");
+const PublishedEntry = require(__dirname + "/dbmodels/publishedEntry");
 const User = require(__dirname + "/dbmodels/user");
 
 mongoose.connect(process.env.DBURL);
@@ -81,13 +82,24 @@ app.get("/editor", (req, res) => {
 });
 
 app.post("/save-entry", (req, res) => {
-  let newEntry = new BlogEntry({
-    "publish-code": 0,
+  let newEntry = new SavedEntry({
     "title": req.body.title,
     "content": req.body.content
   });
 
   newEntry.save(err => {console.log(err)});
+});
+
+app.post("/publish-entry", (req, res) => {
+  PublishedEntry.count((err, count) => {
+    let newEntry = new PublishedEntry({
+      "publish-code": count + 1,
+      "title": req.body.title,
+      "content": req.body.content
+    });
+
+    newEntry.save(err => {console.log(err)});
+  });
 });
 
 const port = process.env.PORT || 8080;
