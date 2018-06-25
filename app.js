@@ -84,23 +84,10 @@ app.post("/save-entry", (req, res) => {
   let newEntry = new BlogEntry({
     "publish-code": 0,
     "title": req.body.title,
-    "content": req.body.entry
+    "content": req.body.content
   });
 
   newEntry.save(err => {console.log(err)});
-});
-
-app.post("/message", (req, res) => {
-  let newMessage = new Message({
-    email: req.body.email,
-    message: req.body.message
-  });
-
-  newMessage.save(err => {
-    if(err) res.redirect("/");
-  });
-
-  res.render("thanks");
 });
 
 const port = process.env.PORT || 8080;
