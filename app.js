@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
 const session = require("express-session");
+const csurf = require("csurf");
 
 const SavedEntry = require(__dirname + "/dbmodels/savedEntry");
 const PublishedEntry = require(__dirname + "/dbmodels/publishedEntry");
@@ -31,7 +32,10 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+//app.use(csurf());
+
 app.get("/", (req, res) => {
+  //console.log(req.csrfToken());
   let postID = req.query.postid;
 
   if(!postID){
@@ -79,7 +83,12 @@ app.post("/login", (req, res) => {
 });
 
 app.get("/editor", (req, res) => {
-  res.render("editor");
+  console.log("IsAuth: " + req.isAuthenticated());
+  if(req.isAuthenticated()){
+    res.render("editor");
+  } else {
+    res.redirect("/");
+  }
 });
 
 app.post("/save-entry", (req, res) => {

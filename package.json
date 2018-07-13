@@ -22,6 +22,7 @@
   "homepage": "https://github.com/blibzblu/blog#readme",
   "dependencies": {
     "bcryptjs": "2.4.3",
+    "csurf": "1.9.0",
     "dotenv": "5.0.1",
     "express": "4.16.3",
     "express-session": "^1.15.6",

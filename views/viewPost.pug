@@ -8,10 +8,14 @@ html(lang="en")
     link(rel="stylesheet", href="/styles/style.css")
     title Blibz - Changes
     body
-      div(id="blog-post")
-        h1 #{title}
-        p(id="contentArea")
-        
+      div(id="container")
+        div(id="blog-post")
+          h1 #{title}
+          div(id="contentArea")
+          div(id="arrows")
+            div( class="left-arrow")
+            p #{title}
+            div(class="right-arrow")
         
       script(src="https://cdn.jsdelivr.net/npm/marked/marked.min.js")
       script(src="scripts/viewPost.js")
